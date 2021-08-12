@@ -1,0 +1,33 @@
+---
+title: "MarkyMark"
+author: "Leah Nguyen"
+date: "8/12/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# What about code
+We can interspace notes and code "chunks". Use the insert pull down, or hotkey alt-command-I(mac). Run the code in each chunk using the freen arrow or hotkey Ctr-shift-enter
+
+## load packages
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(here)
+```
+
+## read in beaches data
+```{r message=FALSE, warning=FALSE}
+beaches <- read_csv(here("data","sydneybeaches.csv"))
+```
+
+```{r}
+beaches %>% 
+  group_by(Site) %>% 
+  summarise(meanbugs = mean(`Enterococci (cfu/100ml)`, na.rm = TRUE)) %>% 
+  ggplot(aes(x = Site, y = meanbugs)) + 
+  geom_col() + 
+  coord_flip()
+```
